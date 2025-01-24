@@ -1,5 +1,8 @@
+
 const colors = {
-    primary: '#3498db',
+    primary: '#1E1E1E',
+    buttonSecondry:'#3A3A4D',
+    buttonPrimary:'#2E70E8',
     secondary: '#2ecc71',
     accent: '#e74c3c',
     background: '#ecf0f1',
