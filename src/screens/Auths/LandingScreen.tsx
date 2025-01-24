@@ -15,7 +15,7 @@ import ButtonComponent from '../../components/Button/ButtonComponent';
 
 const LandingScreen = ({ navigation }: any) => {
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: colors.primary }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: colors.primaryBackground }}>
             <ImageBackground source={Images.background} style={styles.background}>
                 {/* App Logo */}
                 <View style={styles.logoContainer}>
@@ -26,11 +26,13 @@ const LandingScreen = ({ navigation }: any) => {
                 <View style={styles.buttonContainer}>
                     <ButtonComponent
                         title="Sign Up"
+                        marginLR={10}
                         color= {colors.buttonPrimary}
-                        onPress={() => navigation.navigate('Signup')}
+                        onPress={() => navigation.navigate('CreateAccount')}
                     />
                     <ButtonComponent
-                        title="Login"
+                        title="Log In"
+                        marginLR={10}
                         color= {colors.buttonSecondry}
                         onPress={() => navigation.navigate('Login')}
                     />

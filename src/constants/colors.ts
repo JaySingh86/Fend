@@ -1,18 +1,14 @@
 
 const colors = {
-    primary: '#1E1E1E',
+    primaryBackground: '#1E1E1E',
     buttonSecondry:'#3A3A4D',
     buttonPrimary:'#2E70E8',
-    secondary: '#2ecc71',
-    accent: '#e74c3c',
-    background: '#ecf0f1',
-    text: '#2c3e50',
-    muted: '#95a5a6',
-    white: '#ffffff',
-    black: '#000000',
-    gray: '#7f8c8d',
-    lightGray: '#bdc3c7',
-    darkGray: '#34495e',
+    textPrimary:'#FFFFFF',
+    textSecondry:'#A1A1AC',
+    sepratorPrimary:'#9A9AA5',
+    dissableSecondry:'#3E3F42',
+    placeholderPrimary:'#888888',
+   
 };
 
 export default colors;
