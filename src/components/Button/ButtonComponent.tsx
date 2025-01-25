@@ -25,7 +25,6 @@ export default ButtonComponent;
 
 const styles = StyleSheet.create({
     button: {
-        flex: 1,
         paddingHorizontal: 8,
         height: 51,
         borderRadius: 10,

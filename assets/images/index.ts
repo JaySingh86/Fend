@@ -7,4 +7,6 @@ export const Images = {
     appleIcon: require('./appleIcon.png'),
     arrowLeftLight: require('./arrowLeftLight.png'),
     logoText: require('./logoText.png'),
+    closeIcon: require('./closeIcon.png'),
+    faceIdIcon: require('./faceIdIcon.png')
 };

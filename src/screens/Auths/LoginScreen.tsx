@@ -1,29 +1,25 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, SafeAreaView, Button, Keyboard } from 'react-native';
-import BackButton from '../../components/Button/BackButton'; // Adjust the path
-import SocialLoginButton from '../../components/Button/SocialLoginButton'; // Adjust the path
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Alert, Image, SafeAreaView } from 'react-native';
+import BackButton from '../../components/Button/BackButton';
 import { Images } from '../../../assets/images';
 import colors from '../../constants/colors';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import DividerWithText from '../../components/Labels/DividerWithText';
-import CustomTextInput from '../../components/Inputs/CustomTextInput';
 import PhoneNumberInput from '../../components/Inputs/PhoneNumberInput';
-import TermsAndPrivacy from '../../components/Labels/TermsAndPrivacy';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import ButtonComponent from '../../components/Button/ButtonComponent';
+import TermsAndPrivacy from '../../components/Labels/TermsAndPrivacy';
 
-const CreateAccountScreen = ({ navigation }: any) => {
-    const [firstName, setFirstName] = React.useState('');
-    const [lastName, setLastName] = React.useState('');
-    const [phoneNumber, setPhoneNumber] = React.useState('');
-    const [rawPhoneNumber, setRawPhoneNumber] = React.useState('');
+const LoginScreen = ({ navigation }: any) => {
 
+    const [phoneNumber, setPhoneNumber] = useState<string>('');
+    const [rawPhoneNumber, setRawPhoneNumber] = useState<string>('');
 
-    const field1Ref = React.useRef<any>(null);
-    const field2Ref = React.useRef<any>(null);
-
-
-    const validateInputs = () => {
-
+    const handleLogin = (): void => {
+        if (phoneNumber) {
+            console.log('Phone Number:', phoneNumber);
+            // Add your logic for sending OTP or logging in here
+        } else {
+            Alert.alert('Please enter your phone number');
+        }
     };
 
     return (
@@ -44,53 +40,20 @@ const CreateAccountScreen = ({ navigation }: any) => {
 
 
                 {/* Create an Account Text */}
-                <Text style={styles.createAccountText}>Create an Account</Text>
+                <Text style={styles.createAccountText}>{'Welcome\nBack!'}</Text>
 
                 {/* Log In Text */}
                 <View style={styles.loginContainer}>
-                    <Text style={styles.loginText}>Already have an account? </Text>
+                    <Text style={styles.loginText}>Don't have an account? </Text>
                     <Text
                         style={styles.loginLink}
-                        onPress={() => navigation.replace('Login')}
+                        onPress={() => navigation.replace('CreateAccount')}
                     >
-                        Log In
+                        Sign Up
                     </Text>
                 </View>
 
-                {/* Social Login Buttons */}
-                <SocialLoginButton
-                    title="Sign up with Google"
-                    backgroundColor={colors.buttonSecondry}
-                    icon={Images.googleIcon} // Replace with your local icon path
-                    onPress={() => console.log('Google login pressed')}
-                />
-                <SocialLoginButton
-                    title="Sign up with Apple"
-                    backgroundColor={colors.buttonSecondry}
-                    icon={Images.appleIcon} // Replace with your local icon path
-                    onPress={() => console.log('Facebook login pressed')}
-                />
-                {/* Divider with "Or continue with" */}
-                <DividerWithText text="Or continue with" />
-                <CustomTextInput
-                    placeholder="First name"
-                    value={firstName}
-                    onChangeText={setFirstName}
-                    errorMessage={""}
-                    editable={true}
-                    marginBottom={0}
 
-                />
-                <CustomTextInput
-                    placeholder="Last name"
-                    value={lastName}
-                    onChangeText={setLastName}
-                    errorMessage={""}
-                    editable={true}
-                    marginBottom={0}
-                    showNext
-
-                />
                 <PhoneNumberInput
                     placeholder="Phone Number"
                     value={phoneNumber}
@@ -111,7 +74,7 @@ const CreateAccountScreen = ({ navigation }: any) => {
                     marginLR={0}
                     marginT={20}
                     color={colors.buttonPrimary}
-                    onPress={() => navigation.navigate('')}
+                    onPress={() => navigation.navigate('OTPVerify',{isFromLogin:true})}
                 />
 
 
@@ -167,5 +130,4 @@ const styles = StyleSheet.create({
 
     },
 });
-
-export default CreateAccountScreen;
+export default LoginScreen;
