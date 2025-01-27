@@ -57,23 +57,25 @@ const CustomTabBarBackground: React.FC = () => {
       style={styles.curve}
     >
       <Path
-  d={`
-    M 0 ${curveHeight} 
-    H ${width * 0.37} 
-    C ${width * 0.40} ${curveHeight} ${width * 0.45} 0 ${width * 0.5} 0 
-    C ${width * 0.55} 0 ${width * 0.60} ${curveHeight} ${width * 0.63} ${curveHeight} 
-    H ${width} 
-    V ${tabHeight + curveHeight} 
-    H 0 Z
-  `}
-  fill={colors.tabBackground}
-/>
+        d={`
+          M 0 ${curveHeight} 
+          H ${width * 0.37} 
+          C ${width * 0.40} ${curveHeight} ${width * 0.45} 0 ${width * 0.5} 0 
+          C ${width * 0.55} 0 ${width * 0.60} ${curveHeight} ${width * 0.63} ${curveHeight} 
+          H ${width} 
+          V ${tabHeight + curveHeight} 
+          H 0 Z
+        `}
+        fill={colors.tabBackground}
+    
+      />
+     
     </Svg>
   );
 };
 
 const BottomTab: React.FC = () => {
-  
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -110,10 +112,10 @@ const BottomTab: React.FC = () => {
     >
       <Tab.Screen name="Dashboard" component={DashboardScreen} />
       <Tab.Screen name="Accounts" component={AccountsScreen} />
-      <Tab.Screen 
-        name="ScountAI" 
-        component={GeneratorScreen} 
-        options={{ tabBarLabel: () => null }} 
+      <Tab.Screen
+        name="ScountAI"
+        component={GeneratorScreen}
+        options={{ tabBarLabel: () => null }}
       />
       <Tab.Screen name="Generator" component={GeneratorScreen} />
       <Tab.Screen name="Vault" component={VaultScreen} />
