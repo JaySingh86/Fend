@@ -30,4 +30,5 @@ export const Images = {
     profileIcon: require('./profileIcon.png'),
     shareIcon: require('./shareIcon.png'),
     TCIcon: require('./T&CIcon.png'),
+    userSample: require('./userSample.png')
 };
