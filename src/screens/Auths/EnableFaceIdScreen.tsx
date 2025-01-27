@@ -88,15 +88,15 @@ const EnableFaceIdScreen: React.FC = ({ route, navigation }: any) => {
             value={isFaceIDEnabled}
             onValueChange={toggleFaceID}
             thumbColor={isFaceIDEnabled ? "#ccc" : "#ccc"}
-            trackColor={{ false: colors.buttonSecondry, true:colors.buttonPrimary }}
+            trackColor={{ false: colors.buttonSecondry, true: colors.buttonPrimary }}
           />
         </View>
 
 
 
       </View>
-            {/* Add the Secondary Button */}
-            <SecondaryButton title="Skip for Now" onPress={navigation.navigate('')} />
+      {/* Add the Secondary Button */}
+      <SecondaryButton title="Skip for Now" onPress={() => navigation.navigate('OTPVerify', { isFromLogin: true })} />
 
     </SafeAreaView>
   );
@@ -203,9 +203,9 @@ const styles = StyleSheet.create({
   faceIDContainer: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent:'space-between',
+    justifyContent: 'space-between',
     marginTop: 32,
-    marginHorizontal:20,
+    marginHorizontal: 20,
   },
   faceIDText: {
     fontSize: 14,

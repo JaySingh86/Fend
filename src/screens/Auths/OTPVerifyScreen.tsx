@@ -110,7 +110,7 @@ const OTPVerifyScreen: React.FC = ({ route, navigation }: any) => {
             {isResendDisabled ? `Resend code ( 0:${timer} )` : "Didn’t receive code?"}            
           </Text>
           {!isResendDisabled && (
-            <TouchableOpacity onPress={handleResendCode}>
+            <TouchableOpacity onPress={() => handleResendCode()}>
               <Text style={styles.resendText}>Resend Code</Text>
             </TouchableOpacity>
           )}
