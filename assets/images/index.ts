@@ -8,5 +8,16 @@ export const Images = {
     arrowLeftLight: require('./arrowLeftLight.png'),
     logoText: require('./logoText.png'),
     closeIcon: require('./closeIcon.png'),
-    faceIdIcon: require('./faceIdIcon.png')
+    faceIdIcon: require('./faceIdIcon.png'),
+    dashboard: require('./dashboard.png'),
+    generator: require('./generator.png'),
+    vault: require('./vault.png'),
+    scoutAI: require('./settings.png'),
+    accounts: require('./accounts.png'),
+    FAQIcon: require('./FAQIcon.png'),
+    inviteIcon: require('./inviteIcon.png'),
+    policyIcon: require('./policyIcon.png'),
+    profileIcon: require('./profileIcon.png'),
+    shareIcon: require('./shareIcon.png'),
+
 };
