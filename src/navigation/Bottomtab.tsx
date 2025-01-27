@@ -6,6 +6,7 @@ import Svg, { Path } from 'react-native-svg';
 import { Images } from '../../assets/images';
 import colors from '../constants/colors';
 import DashboardScreen from '../screens/Dashboard/DashboardScreen';
+import AccountsScreen from '../screens/Accounts/AccountsScreen';
 
 const Tab = createBottomTabNavigator();
 const { width } = Dimensions.get('window');
@@ -15,11 +16,7 @@ const { width } = Dimensions.get('window');
 type ScreenProps = {};
 
 
-const AccountsScreen: React.FC<ScreenProps> = () => (
-  <View style={styles.screen}>
-    <Text>Accounts</Text>
-  </View>
-);
+
 
 const GeneratorScreen: React.FC<ScreenProps> = () => (
   <View style={styles.screen}>

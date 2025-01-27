@@ -11,11 +11,14 @@ import globalStyles from '../../styles/styles';
 
 interface CustomHeaderProps {
   title: string; // The title of the screen
+  rightIcon?: ImageSourcePropType; // The name of the right icon (Ionicons icon name)
   onDrawerToggle?: () => void; // Optional prop to toggle drawer
   onNotificationPress?: () => void; // Optional prop to handle notification press
+  onRightIconPress?: () => void; // The function to handle right icon press
+
 }
 
-const MainHeader: React.FC<CustomHeaderProps> = ({ title, onDrawerToggle, onNotificationPress }) => {
+const MainHeader: React.FC<CustomHeaderProps> = ({ title, onDrawerToggle, onRightIconPress, rightIcon }) => {
   return (
 
     <View style={{ backgroundColor: colors.primaryBackground }}>
@@ -34,9 +37,9 @@ const MainHeader: React.FC<CustomHeaderProps> = ({ title, onDrawerToggle, onNoti
 
         {/* Right Notification Button */}
         <BackButton
-          onPress={onNotificationPress || (() => { })} // Provide a default no-op function
+          onPress={onRightIconPress || (() => { })} // Provide a default no-op function
           backgroundColor={colors.buttonSecondry} // Light gray background
-          icon={Images.noNotification} // Replace with your back icon
+          icon={rightIcon} // Replace with your back icon
         />
 
 
