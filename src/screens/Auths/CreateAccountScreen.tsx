@@ -111,7 +111,7 @@ const CreateAccountScreen = ({ navigation }: any) => {
                     marginLR={0}
                     marginT={20}
                     color={colors.buttonPrimary}
-                    onPress={() => navigation.navigate('')}
+                    onPress={() => navigation.navigate('OTPVerify',{isFromLogin:false})}
                 />
 
 

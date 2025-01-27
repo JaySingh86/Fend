@@ -14,6 +14,7 @@ import colors from '../../constants/colors';
 import ButtonComponent from '../../components/Button/ButtonComponent';
 
 const LandingScreen = ({ navigation }: any) => {
+    
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.primaryBackground }}>
             <ImageBackground source={Images.background} style={styles.background}>

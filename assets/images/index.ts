@@ -25,4 +25,9 @@ export const Images = {
     profileIcon: require('./profileIcon.png'),
     shareIcon: require('./shareIcon.png'),
     TCIcon: require('./T&CIcon.png'),
+    burgerMenu: require('./burgerMenu.png'),
+    noNotification: require('./noNotificationIcon.png'),
+    notifications: require('./notificationsIcon.png'),
+    plusIcon: require('./plusIcon.png')
+
 };
