@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Svg, { Path } from 'react-native-svg';
 import { Images } from '../../assets/images';
 import colors from '../constants/colors';
+import Drawer from "./DrawerStack"
 
 const Tab = createBottomTabNavigator();
 const { width } = Dimensions.get('window');
@@ -14,9 +15,10 @@ const { width } = Dimensions.get('window');
 type ScreenProps = {};
 
 // Individual screen components
-const DashboardScreen: React.FC<ScreenProps> = () => (
+const DashboardScreen: React.FC<any> = (props) => (
+
   <View style={styles.screen}>
-    <Text>Dashboard</Text>
+    <Text onPress={() => props.navigation.openDrawer()}>Dashboard</Text>
   </View>
 );
 
@@ -77,8 +79,10 @@ const CustomTabBarBackground: React.FC = () => {
 const BottomTab: React.FC = () => {
 
   return (
-    <Tab.Navigator
+    <Tab.Navigator 
+   
       screenOptions={({ route }) => ({
+       
         tabBarIcon: ({ focused, color, size }) => {
           if (route.name === 'Dashboard') {
             return <Image style={styles.icon} source={focused ? Images.dashboardActive : Images.dashboard} />;
@@ -101,6 +105,7 @@ const BottomTab: React.FC = () => {
         tabBarInactiveTintColor: 'gray',
         tabBarShowLabel: true,
         headerShown: false,
+        
         tabBarStyle: {
           position: 'absolute',
           height: 70,

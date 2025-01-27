@@ -24,5 +24,5 @@ export const Images = {
     policyIcon: require('./policyIcon.png'),
     profileIcon: require('./profileIcon.png'),
     shareIcon: require('./shareIcon.png'),
-
+    TCIcon: require('./T&CIcon.png'),
 };
