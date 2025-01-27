@@ -40,9 +40,6 @@ const DrawerContent = ({ navigation }: DrawerContentProps) => {
   return (
     <View style={styles.container}>
       <View style={{ height: height * 0.05 }}></View>
-      {/* Status Bar */}
-      {/* <StatusBar barStyle="light-content" backgroundColor="rgba(46, 46, 61, 0.9)" /> */}
-
       {/* Header Section */}
       <View style={styles.headerView}>
         <View style={styles.IconView}>
