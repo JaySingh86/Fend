@@ -47,7 +47,7 @@ const SettingsScreen: React.FC<ScreenProps> = () => (
 // Custom SVG for the curved background
 const CustomTabBarBackground: React.FC = () => {
   const tabHeight = 70; // Height of the tab bar
-  const curveHeight = 30; // Depth of the curve (upwards)
+  const curveHeight = 26; // Depth of the curve (upwards)
 
   return (
     <Svg
