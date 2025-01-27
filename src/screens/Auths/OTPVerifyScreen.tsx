@@ -5,8 +5,11 @@ import BackButton from '../../components/Button/BackButton';
 import colors from '../../constants/colors';
 import { Images } from '../../../assets/images';
 import ButtonComponent from '../../components/Button/ButtonComponent';
+import { useDispatch } from 'react-redux';
+import { login } from '../../redux/slices/LoginStatusSlice';
 
 const OTPVerifyScreen: React.FC = ({ route, navigation }: any) => {
+  const dispatch = useDispatch();
   // const navigation = useNavigation();
   const { isFromLogin } = route.params;
 
@@ -93,7 +96,7 @@ const OTPVerifyScreen: React.FC = ({ route, navigation }: any) => {
         </View>
         <InputAccessoryView nativeID={inputAccessoryViewID}>
         <View style={styles.inputAccessoryContainer}>
-          <Button title="Done" onPress={() => Keyboard.dismiss()} />
+          <Button title="Done" onPress={() =>{ Keyboard.dismiss(),dispatch(login()) }} />
         </View>
       </InputAccessoryView>
         

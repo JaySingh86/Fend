@@ -7,6 +7,7 @@ import {
   Image,
   Dimensions,
   StatusBar,
+  Pressable,
 } from "react-native";
 import {
   createDrawerNavigator,
@@ -17,6 +18,8 @@ import BottomTab from "./Bottomtab";
 import { Images } from "../../assets/images";
 import ButtonComponent from "../components/Button/ButtonComponent";
 import colors from "../constants/colors";
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/slices/LoginStatusSlice";
 const { height, width } = Dimensions.get("screen");
 
 type RootStackParamList = {
@@ -30,6 +33,7 @@ type DrawerContentProps = {
 };
 
 const DrawerContent = ({ navigation }: DrawerContentProps) => {
+  const dispatch = useDispatch();
   return (
     <View style={styles.container}>
       <View style={{height:height *0.05}}></View>
@@ -56,9 +60,11 @@ const DrawerContent = ({ navigation }: DrawerContentProps) => {
         </View>
       </View>
       <View style={styles.buttonView}>
+        <Pressable onPress={() => dispatch(logout())}>
         <View style={styles.mainView}>
           <Text style={styles.signOutText}>Sign Out</Text>
         </View>
+        </Pressable>
       </View>
       <View style={{height:height *0.02}}></View>
       {/* Options Section */}
