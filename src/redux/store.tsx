@@ -20,5 +20,7 @@ const store = configureStore({
 });
 
 // Export store and types for use in the application
+
+
 export const persistor = persistStore(store);
 export default store;
