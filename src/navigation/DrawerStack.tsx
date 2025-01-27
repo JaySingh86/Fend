@@ -24,6 +24,7 @@ const { height, width } = Dimensions.get("screen");
 
 type RootStackParamList = {
   Home: undefined;
+  BottomTab: undefined;
 };
 
 const Drawer = createDrawerNavigator<RootStackParamList>();
@@ -135,10 +136,16 @@ const DrawerStack = () => {
     <Drawer.Navigator
       screenOptions={{
         headerShown: false,
+        drawerType: 'front', 
+        overlayColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent overlay
+        drawerStyle: {
+          backgroundColor: '#fff', // Background color of the drawer
+          width:  width * 0.8, // Width of the drawer
+        },
+
       }}
-      drawerContent={(props: DrawerContentProps) => (
-        <DrawerContent {...props} />
-      )}
+      drawerContent={() => <DrawerContent />}
+
     >
       <Drawer.Screen name="BottomTab" component={BottomTab} />
     </Drawer.Navigator>
@@ -152,8 +159,8 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(46, 46, 61, 0.9)",
   },
   headerView: {
-    height: height * 0.06,
-    width: width * 0.86,
+    // height: height * 0.06,
+    // width: width * 0.86,
     justifyContent: "center",
     alignItems: "flex-end",
   },
