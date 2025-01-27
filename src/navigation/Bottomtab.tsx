@@ -9,6 +9,7 @@ import colors from '../constants/colors';
 const Tab = createBottomTabNavigator();
 const { width } = Dimensions.get('window');
 
+
 // Define props for screens (optional if there are no props)
 type ScreenProps = {};
 
@@ -46,7 +47,7 @@ const SettingsScreen: React.FC<ScreenProps> = () => (
 // Custom SVG for the curved background
 const CustomTabBarBackground: React.FC = () => {
   const tabHeight = 70; // Height of the tab bar
-  const curveHeight = 36; // Depth of the curve (upwards)
+  const curveHeight = 30; // Depth of the curve (upwards)
 
   return (
     <Svg
@@ -56,22 +57,23 @@ const CustomTabBarBackground: React.FC = () => {
       style={styles.curve}
     >
       <Path
-        d={`
-          M 0 ${curveHeight} 
-          H ${width * 0.35} 
-          C ${width * 0.4} ${curveHeight} ${width * 0.4} 0 ${width * 0.5} 0 
-          C ${width * 0.6} 0 ${width * 0.6} ${curveHeight} ${width * 0.65} ${curveHeight} 
-          H ${width} 
-          V ${tabHeight + curveHeight} 
-          H 0 Z
-        `}
-        fill={colors.tabBackground}
-      />
+  d={`
+    M 0 ${curveHeight} 
+    H ${width * 0.37} 
+    C ${width * 0.40} ${curveHeight} ${width * 0.45} 0 ${width * 0.5} 0 
+    C ${width * 0.55} 0 ${width * 0.60} ${curveHeight} ${width * 0.63} ${curveHeight} 
+    H ${width} 
+    V ${tabHeight + curveHeight} 
+    H 0 Z
+  `}
+  fill={colors.tabBackground}
+/>
     </Svg>
   );
 };
 
 const BottomTab: React.FC = () => {
+  
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -108,7 +110,11 @@ const BottomTab: React.FC = () => {
     >
       <Tab.Screen name="Dashboard" component={DashboardScreen} />
       <Tab.Screen name="Accounts" component={AccountsScreen} />
-      <Tab.Screen name="ScountAI" component={GeneratorScreen} />
+      <Tab.Screen 
+        name="ScountAI" 
+        component={GeneratorScreen} 
+        options={{ tabBarLabel: () => null }} 
+      />
       <Tab.Screen name="Generator" component={GeneratorScreen} />
       <Tab.Screen name="Vault" component={VaultScreen} />
     </Tab.Navigator>
@@ -130,7 +136,7 @@ const styles = StyleSheet.create({
     height: 64,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 35, // Ensures proper alignment with the curve
+    marginBottom: 15, // Ensures proper alignment with the curve
     top: 0,
   },
   icon: {
