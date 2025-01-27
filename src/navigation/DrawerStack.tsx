@@ -28,7 +28,9 @@ type RootStackParamList = {
 
 const Drawer = createDrawerNavigator<RootStackParamList>();
 
-type DrawerContentProps = {
+import { DrawerContentComponentProps } from '@react-navigation/drawer';
+
+type DrawerContentProps = DrawerContentComponentProps & {
   navigation: DrawerNavigationProp<RootStackParamList, "Home">;
 };
 
@@ -36,10 +38,10 @@ const DrawerContent = ({ navigation }: DrawerContentProps) => {
   const dispatch = useDispatch();
   return (
     <View style={styles.container}>
-      <View style={{height:height *0.05}}></View>
+      <View style={{ height: height * 0.05 }}></View>
       {/* Status Bar */}
       {/* <StatusBar barStyle="light-content" backgroundColor="rgba(46, 46, 61, 0.9)" /> */}
-      
+
       {/* Header Section */}
       <View style={styles.headerView}>
         <View style={styles.IconView}>
@@ -61,12 +63,12 @@ const DrawerContent = ({ navigation }: DrawerContentProps) => {
       </View>
       <View style={styles.buttonView}>
         <Pressable onPress={() => dispatch(logout())}>
-        <View style={styles.mainView}>
-          <Text style={styles.signOutText}>Sign Out</Text>
-        </View>
+          <View style={styles.mainView}>
+            <Text style={styles.signOutText}>Sign Out</Text>
+          </View>
         </Pressable>
       </View>
-      <View style={{height:height *0.02}}></View>
+      <View style={{ height: height * 0.02 }}></View>
       {/* Options Section */}
       <View style={styles.optionsContainer}>
         <DrawerOption
@@ -82,11 +84,11 @@ const DrawerContent = ({ navigation }: DrawerContentProps) => {
           iconSource={Images.shareIcon}
           label="Share"
         />
-       
+
       </View>
-      <View style={{height:height *0.06}}></View>
+      <View style={{ height: height * 0.06 }}></View>
       <View style={styles.optionsContainer}>
-      <DrawerOption
+        <DrawerOption
           iconSource={Images.TCIcon}
           label="Terms & Conditions"
         />
@@ -100,15 +102,17 @@ const DrawerContent = ({ navigation }: DrawerContentProps) => {
         />
       </View>
       {/* Footer Section */}
-      <View style={{height:height *0.035}}></View>
+      <View style={{ height: height * 0.035 }}></View>
       <ButtonComponent
-                            title="Upgrade to premium"
-                            marginLR={32}
-                            color={colors.buttonPrimary}
-                            // onPress={() => navigation.navigate('Login')}
-                        />
+        title="Upgrade to premium"
+        marginLR={32}
+        color={colors.buttonPrimary}
+        onPress={function (): void {
+          throw new Error("Function not implemented.");
+        }}      // onPress={() => navigation.navigate('Login')}
+      />
 
-     
+
     </View>
   );
 };
@@ -144,7 +148,7 @@ const DrawerStack = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  
+
     backgroundColor: "rgba(46, 46, 61, 0.9)",
   },
   headerView: {
@@ -215,17 +219,17 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   optionsContainer: {
-  height: height * 0.2,
-  // backgroundColor:"green",
+    height: height * 0.2,
+    // backgroundColor:"green",
     justifyContent: "space-evenly",
-    alignItems:"center"
+    alignItems: "center"
   },
   optionRow: {
     flexDirection: "row",
     alignItems: "center",
-   height:height* 0.035,
-   width:width* 0.68,
-  //  backgroundColor:"red"
+    height: height * 0.035,
+    width: width * 0.68,
+    //  backgroundColor:"red"
   },
   optionIcon: {
     width: 25,
@@ -235,8 +239,8 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontSize: 16,
     // marginLeft: 15,
-    left:width * 0.08,
-    fontFamily:"Montserrat-Thin"
+    left: width * 0.08,
+    fontFamily: "Montserrat-Thin"
   },
   upgradeButton: {
     backgroundColor: "#4B7BE5",
