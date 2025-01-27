@@ -19,5 +19,8 @@ export const Images = {
     generatorActive: require('./generatorActive.png'),
     vault: require('./vault.png'),
     vaultActive: require('./vaultActive.png'),
+    burgerMenu: require('./burgerMenu.png'),
+    noNotification: require('./noNotificationIcon.png'),
+    notifications: require('./notificationsIcon.png'),
 
 };

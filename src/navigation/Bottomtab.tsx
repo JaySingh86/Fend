@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions, Image, StyleProp, ViewStyle } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Image, StyleProp, ViewStyle, StatusBar, TouchableOpacity, Alert } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import Svg, { Path } from 'react-native-svg';
 import { Images } from '../../assets/images';
 import colors from '../constants/colors';
+import DashboardScreen from '../screens/Dashboard/DashboardScreen';
 
 const Tab = createBottomTabNavigator();
 const { width } = Dimensions.get('window');
@@ -13,12 +14,6 @@ const { width } = Dimensions.get('window');
 // Define props for screens (optional if there are no props)
 type ScreenProps = {};
 
-// Individual screen components
-const DashboardScreen: React.FC<ScreenProps> = () => (
-  <View style={styles.screen}>
-    <Text>Dashboard</Text>
-  </View>
-);
 
 const AccountsScreen: React.FC<ScreenProps> = () => (
   <View style={styles.screen}>
@@ -67,9 +62,9 @@ const CustomTabBarBackground: React.FC = () => {
           H 0 Z
         `}
         fill={colors.tabBackground}
-    
+
       />
-     
+
     </Svg>
   );
 };
@@ -77,49 +72,60 @@ const CustomTabBarBackground: React.FC = () => {
 const BottomTab: React.FC = () => {
 
   return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          if (route.name === 'Dashboard') {
-            return <Image style={styles.icon} source={focused ? Images.dashboardActive : Images.dashboard} />;
-          } else if (route.name === 'Accounts') {
-            return <Image style={styles.icon} source={focused ? Images.accountsActive : Images.accounts} />;
-          } else if (route.name === 'ScountAI') {
-            return (
-              <View style={styles.centralIconContainer}>
-                <Image style={styles.scountAiIcon} source={focused ? Images.scoutAIActive : Images.scoutAI} />
-              </View>
-            );
-          } else if (route.name === 'Generator') {
-            return <Image style={styles.icon} source={focused ? Images.generatorActive : Images.generator} />;
-          }
-          else if (route.name === 'Vault') {
-            return <Image style={styles.icon} source={focused ? Images.vaultActive : Images.vault} />;
-          }
-        },
-        tabBarActiveTintColor: colors.textPrimary,
-        tabBarInactiveTintColor: 'gray',
-        tabBarShowLabel: true,
-        headerShown: false,
-        tabBarStyle: {
-          position: 'absolute',
-          height: 70,
-          borderTopWidth: 0,
-          backgroundColor: 'transparent',
-        },
-        tabBarBackground: () => <CustomTabBarBackground />,
-      })}
-    >
-      <Tab.Screen name="Dashboard" component={DashboardScreen} />
-      <Tab.Screen name="Accounts" component={AccountsScreen} />
-      <Tab.Screen
-        name="ScountAI"
-        component={GeneratorScreen}
-        options={{ tabBarLabel: () => null }}
-      />
-      <Tab.Screen name="Generator" component={GeneratorScreen} />
-      <Tab.Screen name="Vault" component={VaultScreen} />
-    </Tab.Navigator>
+    <>
+      {/* Set the Status Bar style */}
+      <StatusBar barStyle="light-content" backgroundColor={colors.primaryBackground} />
+
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            if (route.name === 'Dashboard') {
+              return <Image style={styles.icon} source={focused ? Images.dashboardActive : Images.dashboard} />;
+            } else if (route.name === 'Accounts') {
+              return <Image style={styles.icon} source={focused ? Images.accountsActive : Images.accounts} />;
+            } else if (route.name === 'ScountAI') {
+              return (
+                <View style={styles.centralIconContainer}>
+                  <Image style={styles.scountAiIcon} source={focused ? Images.scoutAIActive : Images.scoutAI} />
+                </View>
+              );
+            } else if (route.name === 'Generator') {
+              return <Image style={styles.icon} source={focused ? Images.generatorActive : Images.generator} />;
+            }
+            else if (route.name === 'Vault') {
+              return <Image style={styles.icon} source={focused ? Images.vaultActive : Images.vault} />;
+            }
+          },
+          tabBarActiveTintColor: colors.textPrimary,
+          tabBarInactiveTintColor: 'gray',
+          tabBarShowLabel: true,
+          headerShown: false,
+          tabBarStyle: {
+            position: 'absolute',
+            height: 70,
+            borderTopWidth: 0,
+            backgroundColor: 'transparent',
+
+          },
+          tabBarBackground: () => <CustomTabBarBackground />,
+          headerStyle: {
+            backgroundColor: colors.primaryBackground, // Set the background color for the top navigation bar (header)
+          },
+          headerTintColor: 'white', // Set the header text color (white)
+          
+        })}
+      >
+        <Tab.Screen name="Dashboard" component={DashboardScreen} />
+        <Tab.Screen name="Accounts" component={AccountsScreen} />
+        <Tab.Screen
+          name="ScountAI"
+          component={GeneratorScreen}
+          options={{ tabBarLabel: () => null }}
+        />
+        <Tab.Screen name="Generator" component={GeneratorScreen} />
+        <Tab.Screen name="Vault" component={VaultScreen} />
+      </Tab.Navigator>
+    </>
   );
 };
 

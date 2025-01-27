@@ -70,7 +70,7 @@ const OTPVerifyScreen: React.FC = ({ route, navigation }: any) => {
 
       {/* OTP Form */}
       <View style={styles.centeredContent}>
-        <Text style={styles.title}>{isFromLogin ? 'Enable\nFace ID' : 'Verify your\nphone number'}</Text>
+        <Text style={styles.title}>{isFromLogin ? 'Welcome\nBack, Chris!' : 'Verify your\nphone number'}</Text>
         <Text style={styles.subtitle}>
           We have sent the OTP code to the phone number ending in{" "}
           <Text style={styles.highlight}>0153</Text>.
