@@ -10,6 +10,7 @@ import AccountsScreen from '../screens/Accounts/AccountsScreen';
 import VaultScreen from '../screens/Vault/VaultScreen';
 import GeneratorScreen from '../screens/Generator/GeneratorScreen';
 import ScountAIScreen from '../screens/ScountAI/ScountAIScreen';
+import Drawer from "./DrawerStack"
 
 const Tab = createBottomTabNavigator();
 const { width } = Dimensions.get('window');
