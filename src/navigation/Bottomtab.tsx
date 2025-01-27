@@ -7,6 +7,9 @@ import { Images } from '../../assets/images';
 import colors from '../constants/colors';
 import DashboardScreen from '../screens/Dashboard/DashboardScreen';
 import AccountsScreen from '../screens/Accounts/AccountsScreen';
+import VaultScreen from '../screens/Vault/VaultScreen';
+import GeneratorScreen from '../screens/Generator/GeneratorScreen';
+import ScountAIScreen from '../screens/ScountAI/ScountAIScreen';
 
 const Tab = createBottomTabNavigator();
 const { width } = Dimensions.get('window');
@@ -18,17 +21,7 @@ type ScreenProps = {};
 
 
 
-const GeneratorScreen: React.FC<ScreenProps> = () => (
-  <View style={styles.screen}>
-    <Text>Generator</Text>
-  </View>
-);
 
-const VaultScreen: React.FC<ScreenProps> = () => (
-  <View style={styles.screen}>
-    <Text>Vault</Text>
-  </View>
-);
 
 const SettingsScreen: React.FC<ScreenProps> = () => (
   <View style={styles.screen}>
@@ -116,7 +109,7 @@ const BottomTab: React.FC = () => {
         <Tab.Screen name="Accounts" component={AccountsScreen} />
         <Tab.Screen
           name="ScountAI"
-          component={GeneratorScreen}
+          component={ScountAIScreen}
           options={{ tabBarLabel: () => null }}
         />
         <Tab.Screen name="Generator" component={GeneratorScreen} />
