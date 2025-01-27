@@ -81,20 +81,20 @@ const BottomTab: React.FC = () => {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           if (route.name === 'Dashboard') {
-            return <Image style={styles.icon} source={Images.dashboard} />;
+            return <Image style={styles.icon} source={focused ? Images.dashboardActive : Images.dashboard} />;
           } else if (route.name === 'Accounts') {
-            return <Image style={styles.icon} source={Images.accounts} />;
+            return <Image style={styles.icon} source={focused ? Images.accountsActive : Images.accounts} />;
           } else if (route.name === 'ScountAI') {
             return (
               <View style={styles.centralIconContainer}>
-                <Image style={styles.scountAiIcon} source={Images.scoutAI} />
+                <Image style={styles.scountAiIcon} source={focused ? Images.scoutAIActive : Images.scoutAI} />
               </View>
             );
           } else if (route.name === 'Generator') {
-            return <Image style={styles.icon} source={Images.generator} />;
+            return <Image style={styles.icon} source={focused ? Images.generatorActive : Images.generator} />;
           }
           else if (route.name === 'Vault') {
-            return <Image style={styles.icon} source={Images.vault} />;
+            return <Image style={styles.icon} source={focused ? Images.vaultActive : Images.vault} />;
           }
         },
         tabBarActiveTintColor: colors.textPrimary,
