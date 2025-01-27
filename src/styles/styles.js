@@ -21,6 +21,11 @@ const globalStyles = StyleSheet.create({
         color: colors.textPrimary,
         fontFamily: 'Montserrat-Regular'
     },
+    H3Title: {
+        fontSize: 16,
+        color: colors.textPrimary,
+        fontFamily: 'Montserrat-Regular'
+    },
     Subtitle1:{
         fontSize: 14,
         color: colors.textSecondry,

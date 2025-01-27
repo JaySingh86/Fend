@@ -22,6 +22,7 @@ export const Images = {
     burgerMenu: require('./burgerMenu.png'),
     noNotification: require('./noNotificationIcon.png'),
     notifications: require('./notificationsIcon.png'),
-    plusIcon: require('./plusIcon.png')
+    plusIcon: require('./plusIcon.png'),
+    questionIcon: require('./questionIcon.png'),
 
 };
