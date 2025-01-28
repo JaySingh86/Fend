@@ -9,6 +9,8 @@ import colors from '../../constants/colors';
 import MainHeader from '../../components/Header/MainHeader';
 import { Images } from '../../../assets/images';
 import SecurityScoreCard from '../../components/Cards/SecurityScoreCard';
+import globalStyles from '../../styles/styles';
+import { ScrollView, Text } from 'react-native-gesture-handler';
 
 const DashboardScreen = ({ navigation }: any) => {
     const handleDrawerToggle = () => {
@@ -30,13 +32,40 @@ const DashboardScreen = ({ navigation }: any) => {
                 rightIcon={Images.noNotification} // Using Ionicons' search icon for the right icon
                 onRightIconPress={handleRightIconPress} // Handle right icon press
             />
-            <SecurityScoreCard
-                title="Current Security Score"
-                content="This is the content of the card. Add any information here."
-                onHelpPress={handleHelpPress}
-            />
-
-
+            <ScrollView style={{paddingHorizontal:20}}>
+                <SecurityScoreCard
+                    title="Current Security Score"
+                    onHelpPress={handleHelpPress}
+                />
+                <View style={{ flexDirection: 'row',  marginTop: 12 }}>
+                    <View style={[globalStyles.cardBox, { marginRight: 8, alignItems: 'center', justifyContent: 'center' }]}>
+                        <Text style={{ ...globalStyles.H2itleIntraBold, marginBottom: 4 }}>65</Text>
+                        <Text style={globalStyles.H5Title}>Passkeys</Text>
+                    </View>
+                    <View style={[globalStyles.cardBox, { marginLeft: 8, alignItems: 'center', justifyContent: 'center' }]}>
+                        <Text style={{ ...globalStyles.H2itleIntraBold, marginBottom: 4 }}>225</Text>
+                        <Text style={globalStyles.H5Title}>All Passwords</Text>
+                    </View>
+                </View>
+                <View style={{ flexDirection: 'row',  marginTop: 12 }}>
+                    <View style={[globalStyles.cardBox, { marginRight: 8, alignItems: 'center', justifyContent: 'center' }]}>
+                        <Text style={{ ...globalStyles.H2itleIntraBold, marginBottom: 4 }}>195</Text>
+                        <Text style={globalStyles.H5Title}>Reused Passwords</Text>
+                    </View>
+                    <View style={[globalStyles.cardBox, { marginLeft: 8, alignItems: 'center', justifyContent: 'center' }]}>
+                        <Text style={{ ...globalStyles.H2itleIntraBold, marginBottom: 4 }}>12</Text>
+                        <Text style={globalStyles.H5Title}>Wi-Fi</Text>
+                    </View>
+                </View>
+                <View style={{ flexDirection: 'row', marginTop: 12 }}>
+                    <View style={[globalStyles.cardBox, { marginRight: 8, alignItems: 'center', justifyContent: 'center' }]}>
+                        <Text style={{ ...globalStyles.H2itleIntraBold, marginBottom: 4 }}>7</Text>
+                        <Text style={globalStyles.H5Title}>Deleted</Text>
+                    </View>
+                    <View style={{ flex: 1, marginLeft: 8 }} />
+                </View>
+                <Text style={{...globalStyles.H4Title, textAlign:'center', marginTop:40}}>Consider using SCOUT our AI Assistant to improve your security score. </Text>
+            </ScrollView>
         </View>
 
     );
