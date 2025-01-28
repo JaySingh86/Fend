@@ -55,7 +55,7 @@ const SecurityScoreCard: React.FC<CardProps> = ({ title, onHelpPress }) => {
             </View>
             <View style={{ backgroundColor: colors.buttonPrimary, height: 1 }} />
             <View style={{ paddingTop:12 , paddingBottom:20}}>
-                <Text style={{ ...globalStyles.H1Title, textAlign: 'center', fontSize: 46 , marginBottom:8}}>{"70"}</Text>
+                <Text style={{ ...globalStyles.H1Title, textAlign: 'center', fontSize: 46 , marginBottom:8, }}>{"70"}</Text>
                 <LabelChip
                     bgColor={colors.greenPrimarry} // Light gray background
                     text={"Good"} // Replace with your back icon

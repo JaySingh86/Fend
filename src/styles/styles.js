@@ -30,7 +30,8 @@ const globalStyles = StyleSheet.create({
     H3Title: {
         fontSize: 16,
         color: colors.textPrimary,
-        fontFamily: 'Montserrat-Regular'
+        fontFamily: 'Montserrat-Regular',
+        lineHeight:20
     },
     H4Title: {
         fontSize: 14,
@@ -61,6 +62,14 @@ const globalStyles = StyleSheet.create({
         borderWidth: 0.5,
         borderColor: colors.buttonPrimary,
         flex:1
+    },
+    cardTopRounded:{
+        // padding:12,
+        backgroundColor:colors.buttonSecondry,
+        borderWidth: 0.5,
+        borderColor: colors.buttonPrimary,
+        borderTopRightRadius:20,
+        borderTopLeftRadius:20
     }
 });
 
