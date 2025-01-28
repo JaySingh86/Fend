@@ -7,10 +7,10 @@ const Stack = createNativeStackNavigator();
 
 const MainAppStack = () => {
     return (
-<Stack.Navigator screenOptions={{ headerShown: false }}>
-<Stack.Screen  name="Drawer" component={Drawer} />
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Drawer" component={Drawer} />
+        </Stack.Navigator>
 
-</Stack.Navigator>
-
-    )}
-    export default MainAppStack;
+    )
+}
+export default MainAppStack;

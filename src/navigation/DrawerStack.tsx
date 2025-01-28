@@ -6,8 +6,8 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
-  StatusBar,
   Pressable,
+  SafeAreaView
 } from "react-native";
 import {
   createDrawerNavigator,
@@ -20,10 +20,14 @@ import ButtonComponent from "../components/Button/ButtonComponent";
 import colors from "../constants/colors";
 import { useDispatch } from "react-redux";
 import { logout } from "../redux/slices/LoginStatusSlice";
+import globalStyles from "../styles/styles";
+import BackButton from "../components/Button/BackButton";
+
 const { height, width } = Dimensions.get("screen");
 
 type RootStackParamList = {
   Home: undefined;
+  BottomTab: undefined;
 };
 
 const Drawer = createDrawerNavigator<RootStackParamList>();
@@ -35,58 +39,50 @@ type DrawerContentProps = {
 const DrawerContent = ({ navigation }: DrawerContentProps) => {
   const dispatch = useDispatch();
   return (
-    <View style={styles.container}>
-      <View style={{height:height *0.05}}></View>
-      {/* Status Bar */}
-      {/* <StatusBar barStyle="light-content" backgroundColor="rgba(46, 46, 61, 0.9)" /> */}
+    <View style={styles.drawerContent}>
+      <SafeAreaView />
+      {/* Drawer Header */}
       
-      {/* Header Section */}
-      <View style={styles.headerView}>
-        <View style={styles.IconView}>
-          <Image
-            resizeMode="contain"
-            style={styles.closeIcon}
-            source={Images.closeIcon}
-          />
+      <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+        <View style={{height:40, width:40}}/>
+        <View style={styles.userInfo}>
+          <View style={{marginTop:12,marginBottom:20 ,width:120, height:120, backgroundColor:colors.buttonSecondry, borderRadius:60, justifyContent:'center', alignItems:'center'}}>
+            <Image style={styles.profileImage} source={Images.userSample} />
+          </View>
+          <Text style={styles.userName}>Chris Smith</Text>
+          <Text style={styles.userEmail}>chris_smith@gmail.com</Text>
         </View>
+        <View style={styles.headerView}>
+        <BackButton
+          onPress={() => navigation.closeDrawer()} // Provide a default no-op function
+          backgroundColor={colors.buttonSecondry} // Light gray background
+          icon={Images.closeIcon} // Replace with your back icon
+        />
       </View>
-      <View style={styles.header}>
-        <View style={styles.ImageView}>
-          <Image />
-        </View>
-        <View style={styles.titleView}>
-          <Text style={styles.name}>Chris Smith</Text>
-          <Text style={styles.email}>chris_smith@gmail.com</Text>
-        </View>
+
       </View>
-      <View style={styles.buttonView}>
-        <Pressable onPress={() => dispatch(logout())}>
-        <View style={styles.mainView}>
-          <Text style={styles.signOutText}>Sign Out</Text>
-        </View>
-        </Pressable>
-      </View>
-      <View style={{height:height *0.02}}></View>
-      {/* Options Section */}
-      <View style={styles.optionsContainer}>
+
+      {/* User Info */}
+      
+      {/* Sign Out */}
+      <Pressable onPress={() => dispatch(logout())} style={styles.signOutButton}>
+        <Text style={globalStyles.H4Title}>Sign Out</Text>
+      </Pressable>
+
+      {/* Drawer Options */}
+      <View style={{flex:1,justifyContent:'space-between'}}>
+      <View style={styles.drawerOptions}>
         <DrawerOption
           iconSource={Images.profileIcon}
           label="My Profile"
           onPress={() => navigation.navigate("Home")}
         />
-        <DrawerOption
-          iconSource={Images.FAQIcon}
-          label="FAQ"
-        />
-        <DrawerOption
-          iconSource={Images.shareIcon}
-          label="Share"
-        />
-       
+        <DrawerOption iconSource={Images.FAQIcon} label="FAQ" />
+        <DrawerOption iconSource={Images.shareIcon} label="Share" />
       </View>
-      <View style={{height:height *0.06}}></View>
-      <View style={styles.optionsContainer}>
-      <DrawerOption
+      <View style={{ height: height * 0.06 }} />
+      <View style={styles.drawerOptions}>
+        <DrawerOption
           iconSource={Images.TCIcon}
           label="Terms & Conditions"
         />
@@ -100,15 +96,21 @@ const DrawerContent = ({ navigation }: DrawerContentProps) => {
         />
       </View>
       {/* Footer Section */}
-      <View style={{height:height *0.035}}></View>
+      <View style={{ height: height * 0.035 }} />
       <ButtonComponent
-                            title="Upgrade to premium"
-                            marginLR={32}
-                            color={colors.buttonPrimary}
-                            // onPress={() => navigation.navigate('Login')}
-                        />
+        title="Upgrade to premium"
+        marginLR={0}
+        marginB={12}
+        color={colors.buttonPrimary}
+        onPress={function (): void {
+          throw new Error("Function not implemented.");
+        }}      // onPress={() => navigation.navigate('Login')}
+      />
 
-     
+      </View>
+
+
+
     </View>
   );
 };
@@ -121,7 +123,7 @@ type DrawerOptionProps = {
 
 const DrawerOption = ({ iconSource, label, onPress }: DrawerOptionProps) => (
   <TouchableOpacity style={styles.optionRow} onPress={onPress}>
-    <Image resizeMode="contain" source={iconSource} style={styles.optionIcon} />
+    <Image source={iconSource} style={styles.optionIcon} />
     <Text style={styles.optionLabel}>{label}</Text>
   </TouchableOpacity>
 );
@@ -131,11 +133,16 @@ const DrawerStack = () => {
     <Drawer.Navigator
       screenOptions={{
         headerShown: false,
-        drawerType:"back",
+        drawerType: "front",
+        overlayColor: "transparent", // Makes the overlay transparent
+        drawerStyle: {
+          // backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent drawer background
+          backgroundColor: "rgba(74, 74, 97, 0.9)",
+
+          width: width * 0.8,
+        },
       }}
-      drawerContent={(props: DrawerContentProps) => (
-        <DrawerContent {...props} />
-      )}
+      drawerContent={(props) => <DrawerContent {...props} />}
     >
       <Drawer.Screen name="BottomTab" component={BottomTab} />
     </Drawer.Navigator>
@@ -143,122 +150,68 @@ const DrawerStack = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  drawerContent: {
     flex: 1,
-  
-    backgroundColor: "rgba(46, 46, 61, 0.9)",
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent background for drawer
+    padding: 20,
+    paddingTop:0,
   },
   headerView: {
-    height: height * 0.06,
-    width: width * 0.86,
-    justifyContent: "center",
     alignItems: "flex-end",
   },
-  IconView: {
-    height: height * 0.05,
-    width: width * 0.12,
-    backgroundColor: "rgba(58, 58, 77, 1)",
-    borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    right: 8,
-  },
   closeIcon: {
-    height: 30,
-    width: 30,
+    width: 25,
+    height: 25,
   },
-  header: {
-    top: -height * 0.023,
+  userInfo: {
     alignItems: "center",
-    height: height * 0.2,
-    width: width * 0.86,
-  },
-  ImageView: {
-    height: height * 0.15,
-    width: width * 0.33,
-    borderRadius: 65,
-    backgroundColor: "yellow",
-  },
-  titleView: {
-    top: height * 0.02,
-    height: height * 0.05,
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  buttonView: {
-    height: height * 0.07,
-    width: width * 0.86,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  mainView: {
-    height: height * 0.04,
-    width: width * 0.3,
-    backgroundColor: "rgba(74, 74, 97, 0.5)",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 20,
   },
   profileImage: {
     width: 80,
     height: 80,
     borderRadius: 40,
-    marginBottom: 10,
   },
-  name: {
-    color: "#FFFFFF",
+  userName: {
+    color: "#FFF",
     fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 5,
   },
-  email: {
-    color: "#BBBBBB",
+  userEmail: {
+    color: "#BBB",
     fontSize: 14,
   },
-  optionsContainer: {
-  height: height * 0.2,
-  // backgroundColor:"green",
-    justifyContent: "space-evenly",
-    alignItems:"center"
+  drawerOptions: {
+    marginTop: 20,
   },
   optionRow: {
     flexDirection: "row",
     alignItems: "center",
-   height:height* 0.035,
-   width:width* 0.68,
-  //  backgroundColor:"red"
+    marginVertical: 10,
   },
   optionIcon: {
     width: 25,
     height: 25,
+    marginRight: 15,
   },
   optionLabel: {
-    color: "#FFFFFF",
+    color: "#FFF",
     fontSize: 16,
-    // marginLeft: 15,
-    left:width * 0.08,
-    fontFamily:"Montserrat-Thin"
-  },
-  upgradeButton: {
-    backgroundColor: "#4B7BE5",
-    paddingVertical: 15,
-    alignItems: "center",
-    borderRadius: 10,
-    marginBottom: 15,
-  },
-  upgradeText: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "bold",
   },
   signOutButton: {
-    alignItems: "center",
-    paddingVertical: 15,
+    marginTop: 12,
+    alignSelf: "center",
+    backgroundColor: colors.buttonSecondry,
+    borderRadius: 40,
+    height: 40,
+    width: 114,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   signOutText: {
-    color: "rgba(255, 255, 255, 1)",
+    color: "#FFF",
     fontSize: 14,
   },
+  
 });
 
 export default DrawerStack;

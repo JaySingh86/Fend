@@ -96,7 +96,7 @@ const OTPVerifyScreen: React.FC = ({ route, navigation }: any) => {
         </View>
         <InputAccessoryView nativeID={inputAccessoryViewID}>
         <View style={styles.inputAccessoryContainer}>
-          <Button title="Done" onPress={() =>{ Keyboard.dismiss(),dispatch(login()) }} />
+          <Button title="Done" onPress={() =>{ Keyboard.dismiss() }} />
         </View>
       </InputAccessoryView>
         
@@ -123,7 +123,7 @@ const OTPVerifyScreen: React.FC = ({ route, navigation }: any) => {
           marginLR={0}
           marginT={20}
           color={colors.buttonPrimary}
-          onPress={() => navigation.navigate('EnableFaceId',{isFromLogin:true})}
+          onPress={() => dispatch(login())}
         />
       </View>
     </SafeAreaView>

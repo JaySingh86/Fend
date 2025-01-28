@@ -19,15 +19,16 @@ export const Images = {
     generatorActive: require('./generatorActive.png'),
     vault: require('./vault.png'),
     vaultActive: require('./vaultActive.png'),
+    burgerMenu: require('./burgerMenu.png'),
+    noNotification: require('./noNotificationIcon.png'),
+    notifications: require('./notificationsIcon.png'),
+    plusIcon: require('./plusIcon.png'),
+    questionIcon: require('./questionIcon.png'),
     FAQIcon: require('./FAQIcon.png'),
     inviteIcon: require('./inviteIcon.png'),
     policyIcon: require('./policyIcon.png'),
     profileIcon: require('./profileIcon.png'),
     shareIcon: require('./shareIcon.png'),
     TCIcon: require('./T&CIcon.png'),
-    burgerMenu: require('./burgerMenu.png'),
-    noNotification: require('./noNotificationIcon.png'),
-    notifications: require('./notificationsIcon.png'),
-    plusIcon: require('./plusIcon.png')
-
+    userSample: require('./userSample.png')
 };
