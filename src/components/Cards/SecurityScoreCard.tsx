@@ -12,11 +12,10 @@ const { width } = Dimensions.get('window');
 
 interface CardProps {
     title: string; // Card title
-    content: string; // Card content
     onHelpPress: () => void; // Function to handle help button press
 }
 
-const SecurityScoreCard: React.FC<CardProps> = ({ title, content, onHelpPress }) => {
+const SecurityScoreCard: React.FC<CardProps> = ({ title, onHelpPress }) => {
     return (
         // <View style={styles.cardContainer}>
         //     {/* Title Section with Gradient */}
@@ -54,7 +53,7 @@ const SecurityScoreCard: React.FC<CardProps> = ({ title, content, onHelpPress })
                     icon={Images.questionIcon} // Replace with your back icon
                 />
             </View>
-            <View style={{ backgroundColor: '#313A5B', height: 2 }} />
+            <View style={{ backgroundColor: colors.buttonPrimary, height: 1 }} />
             <View style={{ paddingTop:12 , paddingBottom:20}}>
                 <Text style={{ ...globalStyles.H1Title, textAlign: 'center', fontSize: 46 , marginBottom:8}}>{"70"}</Text>
                 <LabelChip
@@ -80,8 +79,8 @@ const styles = StyleSheet.create({
         shadowColor: '#FFF',
         shadowOpacity: 0.2,
         shadowRadius: 5,
-        borderWidth: 1,
-        borderColor: '#313A5B'
+        borderWidth: 0.5,
+        borderColor: colors.buttonPrimary
     },
     titleGradient: {
         padding: 15,
