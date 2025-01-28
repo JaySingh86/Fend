@@ -10,7 +10,8 @@ const colors = {
     sepratorPrimary:'#9A9AA5',
     dissableSecondry:'#3E3F42',
     placeholderPrimary:'#888888',
-    greenPrimarry:'#00B503'
+    greenPrimarry:'#00B503',
+    redPrimarry:'#F93437',
    
 };
 
