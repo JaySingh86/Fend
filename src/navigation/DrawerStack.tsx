@@ -131,6 +131,7 @@ const DrawerStack = () => {
     <Drawer.Navigator
       screenOptions={{
         headerShown: false,
+        drawerType:"back",
       }}
       drawerContent={(props: DrawerContentProps) => (
         <DrawerContent {...props} />
