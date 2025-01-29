@@ -133,10 +133,10 @@ const AccountsScreen = ({ navigation }: any) => {
     const renderRow = ({ item, index }: { item: Item; index: number }) => {
         const items = data.slice(index * 2, index * 2 + 2);
         return (
-            <View style={styles.row}>
+            <View key={index.toString()} style={styles.row}>
                 {items.map((subItem, i) => (
                     <View
-                        key={subItem.id}
+                        key={index.toString()}
                         style={[styles.cell, items.length === 1 ? styles.fullWidth : i === 0 && { marginRight: 10 }]}
                     >
                         <Image style={styles.logo} source={Images.ChaseBankLogo} />
@@ -158,8 +158,8 @@ const AccountsScreen = ({ navigation }: any) => {
         ]);
     };
 
-    const renderItem = ({ item }: { item: Account }) => (
-        <View style={{ paddingHorizontal: 20 }}>
+    const renderItem = ({ item , index}: { item: Account , index : number}) => (
+        <View key={index.toString()} style={{ paddingHorizontal: 20 }}>
             <AccountCard
                 image={item.image}
                 title={item.title}
@@ -182,7 +182,7 @@ const AccountsScreen = ({ navigation }: any) => {
                 accounts.length > 0 ?
                     <FlatList
                         data={accounts}
-                        keyExtractor={(item) => item.id.toString()}
+                        keyExtractor={(item, index) => index.toString()}
                         ListHeaderComponent={renderHeaderAccount}
                         renderItem={renderItem}
                     /> :
