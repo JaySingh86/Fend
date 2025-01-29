@@ -11,6 +11,7 @@ import {
   Keyboard,
 } from 'react-native';
 import colors from '../../constants/colors';
+import globalStyles from '../../styles/styles';
 
 interface PhoneNumberInputProps {
   placeholder?: string;
@@ -91,7 +92,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
 
       {/* InputAccessoryView */}
       <InputAccessoryView nativeID={inputAccessoryViewID}>
-        <View style={styles.inputAccessoryContainer}>
+        <View style={globalStyles.inputAccessoryContainer}>
           {showPrevious && (
             <Button title="Previous" onPress={onPrevious || (() => {})} />
           )}

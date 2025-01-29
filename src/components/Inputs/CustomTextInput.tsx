@@ -9,8 +9,12 @@ import {
   InputAccessoryView,
   Button,
   Keyboard,
+  TouchableOpacity,
+  Image
 } from 'react-native';
 import colors from '../../constants/colors';
+import { Images } from '../../../assets/images';
+import globalStyles from '../../styles/styles';
 
 interface CustomTextInputProps {
   placeholder: string;
@@ -29,6 +33,7 @@ interface CustomTextInputProps {
   onPrevious?: () => void;
   showPrevious?: boolean;
   showNext?: boolean;
+  inputAccessoryViewID?: string;
 
 }
 
@@ -49,10 +54,11 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
   onPrevious,
   showPrevious = false,
   showNext = false,
+  inputAccessoryViewID = "id",
+
 
 }) => {
   const [isFocused, setIsFocused] = useState(false);
-  const inputAccessoryViewID = 'id'
 
   return (
     <View
@@ -84,15 +90,34 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
       />
 
       {/* Input Accessory View */}
-       <InputAccessoryView nativeID={inputAccessoryViewID}>
-              <View style={styles.inputAccessoryContainer}>
-                {showPrevious && (
-                  <Button title="Previous" onPress={onPrevious || (() => {})} />
-                )}
-                {showNext && <Button title="Next" onPress={onNext || (() => {})} />}
-                <Button title="Done" onPress={() => Keyboard.dismiss()} />
+      <InputAccessoryView nativeID={inputAccessoryViewID}>
+        <View style={globalStyles.inputAccessoryContainer}>
+          <View style={{ flexDirection: 'row' }}>
+            {/* {showPrevious ?
+              <TouchableOpacity style={styles.button} onPress={onPrevious}>
+                <Image source={Images.arrowLeftLight} style={styles.icon} />
+              </TouchableOpacity>
+              :
+              <View style={styles.button}>
+                <Image source={Images.arrowLeftLight} style={styles.iconDissable} />
               </View>
-            </InputAccessoryView>
+            }
+            {showNext ?
+              <TouchableOpacity style={styles.button} onPress={onNext}>
+                <Image source={Images.arrowRightLight} style={styles.icon} />
+              </TouchableOpacity>
+              :
+              <View style={styles.button}>
+                <Image source={Images.arrowRightLight} style={styles.iconDissable} />
+              </View>
+            } */}
+
+            {/* {showNext && <Button title="Next" onPress={onNext || (() => {})} />} */}
+          </View>
+
+          <Button title="Done" onPress={() => Keyboard.dismiss()} />
+        </View>
+      </InputAccessoryView>
 
       {/* Validation Error */}
       {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
@@ -116,12 +141,23 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginTop: 5,
   },
-  inputAccessoryContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: colors.buttonSecondry,
-    paddingVertical: 4,
-    paddingHorizontal: 10,
+  icon: {
+    width: 20,
+    height: 20,
+    resizeMode: 'contain',
+    tintColor: colors.buttonPrimary
+
+  }, iconDissable: {
+    width: 20,
+    height: 20,
+    resizeMode: 'contain',
+    tintColor: 'gray'
+  },
+  button: {
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 });
 

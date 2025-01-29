@@ -76,7 +76,15 @@ const globalStyles = StyleSheet.create({
         borderColor: colors.buttonPrimary,
         borderTopRightRadius:20,
         borderTopLeftRadius:20
-    }
+    },
+    inputAccessoryContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        backgroundColor: colors.assessoeryBg,
+        paddingVertical: 4,
+        paddingRight: 10,
+        paddingLeft:0
+      }
 });
 
 export default globalStyles;

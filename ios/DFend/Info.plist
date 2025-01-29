@@ -31,6 +31,14 @@
 			</array>
 		</dict>
 	</array>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>Allow camera access for QR scanning</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow access to photo library</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Allow location access&lt;</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -42,8 +50,6 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Inter-Italic.ttf</string>

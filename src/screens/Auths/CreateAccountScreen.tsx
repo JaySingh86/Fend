@@ -126,22 +126,26 @@ const CreateAccountScreen = ({ navigation }: any) => {
                 <DividerWithText text="Or continue with" />
                 <CustomTextInput
                     placeholder="First name"
+                    inputAccessoryViewID={'input1'}
                     value={firstName}
                     onChangeText={setFirstName}
                     errorMessage={""}
                     editable={true}
                     marginBottom={0}
-
+                    showNext
+                    onNext={() => console.log("Next tap")}
                 />
+                
                 <CustomTextInput
                     placeholder="Last name"
+                    inputAccessoryViewID={'input2'}
                     value={lastName}
                     onChangeText={setLastName}
                     errorMessage={""}
                     editable={true}
                     marginBottom={0}
                     showNext
-
+                    showPrevious
                 />
                 <PhoneNumberInput
                     placeholder="Phone Number"

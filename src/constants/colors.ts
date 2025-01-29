@@ -12,6 +12,7 @@ const colors = {
     placeholderPrimary:'#888888',
     greenPrimarry:'#00B503',
     redPrimarry:'#F93437',
+    assessoeryBg:'#F2F2F2'
    
 };
 

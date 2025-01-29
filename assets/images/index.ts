@@ -6,6 +6,7 @@ export const Images = {
     googleIcon: require('./googleIcon.png'),
     appleIcon: require('./appleIcon.png'),
     arrowLeftLight: require('./arrowLeftLight.png'),
+    arrowRightLight: require('./arrowRightLight.png'),
     logoText: require('./logoText.png'),
     closeIcon: require('./closeIcon.png'),
     faceIdIcon: require('./faceIdIcon.png'),
