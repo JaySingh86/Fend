@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { login } from '../../redux/slices/LoginStatusSlice';
 import auth from '@react-native-firebase/auth';
 import { parseFirebaseError } from '../../utils/firebaseErrorUtils';
+import database from '@react-native-firebase/database';
 
 const OTPVerifyScreen: React.FC = ({ route, navigation }: any) => {
   const dispatch = useDispatch();
@@ -20,6 +21,8 @@ const OTPVerifyScreen: React.FC = ({ route, navigation }: any) => {
   const [isResendDisabled, setIsResendDisabled] = useState<boolean>(true);
   const inputsRef = useRef<TextInput[]>([]);
   const inputAccessoryViewID = "uniqueAccessoryViewID";
+  const [phone, setPhone] = useState('User Phone Number');
+  const [name, setName] = useState('+918377906186');
 
   useEffect(() => {
     let countdown: NodeJS.Timeout;
@@ -74,18 +77,18 @@ const OTPVerifyScreen: React.FC = ({ route, navigation }: any) => {
         throw new Error('Verification ID is missing. Please request a new OTP.');
       }
       if (!otpConfirmation) return;
-      const credential = auth.PhoneAuthProvider.credential(otpConfirmation.verificationId, joinedOTP);
-      await auth().signInWithCredential(credential);
+      // const credential = auth.PhoneAuthProvider.credential(otpConfirmation.verificationId, joinedOTP);
+      // await auth().signInWithCredential(credential);
 
-      // const userCredential = await otpConfirmation.confirm(otp);
-      // const userId = userCredential.user.uid;
-      console.log("userCredential:",credential)
+      const userCredential = await otpConfirmation.confirm(joinedOTP);
+      const userId = userCredential.user.uid;
+      console.log("userCredential:",userCredential,userId )
 
-      // // Store user data in Firebase Realtime Database
-      // await database().ref(`/users/${userId}`).set({
-      //   name,
-      //   phone
-      // });
+      // Store user data in Firebase Realtime Database
+      await database().ref(`/users/${userId}`).set({
+        name,
+        phone
+      });
 
       Alert.alert('Success', 'User signed up successfully!');
     } catch (error) {
