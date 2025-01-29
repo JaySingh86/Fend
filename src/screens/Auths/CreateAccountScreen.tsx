@@ -58,7 +58,15 @@ const CreateAccountScreen = ({ navigation }: any) => {
             await saveUserToDatabase(user);
 
             console.log('User signed in and saved:', user);
-            dispatch(login(user))
+            const loginInfo = {
+                isLoggedIn: true, // Default state - user is not logged in
+                uid: user?.uid,
+                createdAt: user?.metadata?.lastSignInTime,
+                email: user?.email,
+                name: user?.displayName,
+                profilePicture: user?.photoURL
+            }
+            dispatch(login(loginInfo))
 
 
         } catch (error) {

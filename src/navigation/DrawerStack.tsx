@@ -18,7 +18,9 @@ import BottomTab from "./Bottomtab";
 import { Images } from "../../assets/images";
 import ButtonComponent from "../components/Button/ButtonComponent";
 import colors from "../constants/colors";
-import { useDispatch } from "react-redux";
+import { useDispatch , useSelector} from "react-redux";
+import { RootState } from '../redux/store';
+
 import { logout } from "../redux/slices/LoginStatusSlice";
 import globalStyles from "../styles/styles";
 import BackButton from "../components/Button/BackButton";
@@ -39,26 +41,14 @@ type DrawerContentProps = {
 };
 
 const DrawerContent = ({ navigation }: DrawerContentProps) => {
-  const dispatch = useDispatch();
-  const [userDetails, setUserDetails] = React.useState();
   
-  // React.useEffect(() => {
-  //   const user = auth().currentUser;
-  //   if (user) {
-  //     // Proceed with Firestore operation
-  //     console.log("DrawerContent:", user.uid)
-  //     getUserInfo(user.uid);
-
-  //   } else {
-  //     console.log('User is not authenticated');
-  //   }
-  // });
-  // const getUserInfo = async (uid: string) => {
-  //   const userCredential = await getUserData(uid);
-  //   console.log('userCredential: ',userCredential);
-  //   setUserDetails(userCredential);
-  // }
-
+  const dispatch = useDispatch();
+  const userDetails = useSelector((state: RootState) => state.loginStatus);
+  
+  React.useEffect(() => {
+    console.log("User Details: ", userDetails)
+  });
+ 
   return (
     <View style={styles.drawerContent}>
       <SafeAreaView />
@@ -68,10 +58,11 @@ const DrawerContent = ({ navigation }: DrawerContentProps) => {
         <View style={{ height: 40, width: 40 }} />
         <View style={styles.userInfo}>
           <View style={{ marginTop: 12, marginBottom: 20, width: 120, height: 120, backgroundColor: colors.buttonSecondry, borderRadius: 60, justifyContent: 'center', alignItems: 'center' }}>
-            <Image style={styles.profileImage} source={Images.userSample} />
+            
+            <Image style={styles.profileImage} source={userDetails?.profilePicture.length > 0 ? {uri:userDetails?.profilePicture} : Images.userSample} />
           </View>
-          <Text style={styles.userName}>Chris Smith</Text>
-          <Text style={styles.userEmail}>chris_smith@gmail.com</Text>
+          <Text style={globalStyles.H2Title}>{userDetails?.name}</Text>
+          <Text style={globalStyles.Subtitle1}>{userDetails?.email}</Text>
         </View>
         <View style={styles.headerView}>
           <BackButton

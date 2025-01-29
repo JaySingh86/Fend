@@ -15,17 +15,10 @@ const globalStyles = StyleSheet.create({
         color: colors.textPrimary,
         fontFamily: 'Montserrat-Regular'
     },
-    
     H2Title: {
         fontSize: 20,
         color: colors.textPrimary,
         fontFamily: 'Montserrat-Regular'
-    },
-    H2itleIntraBold: {
-        fontSize: 20,
-        color: colors.textPrimary,
-        fontFamily: 'Inter-Regulr',
-        fontWeight:'600'
     },
     H3Title: {
         fontSize: 16,
@@ -43,8 +36,21 @@ const globalStyles = StyleSheet.create({
         color: colors.textPrimary,
         fontFamily: 'Montserrat-Regular'
     },
+    H2itleIntraBold: {
+        fontSize: 20,
+        color: colors.textPrimary,
+        fontFamily: 'Inter-Regulr',
+        fontWeight:'600'
+    },
+   
     Subtitle1:{
         fontSize: 14,
+        color: colors.textSecondry,
+        lineHeight: 20,
+        fontFamily: 'Montserrat-Regular'
+    },
+    SubTitle2:{
+        fontSize: 12,
         color: colors.textSecondry,
         lineHeight: 20,
         fontFamily: 'Montserrat-Regular'
