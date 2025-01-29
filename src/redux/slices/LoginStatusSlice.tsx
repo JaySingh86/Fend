@@ -37,8 +37,14 @@ const LoginStatusSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    login: (state) => {
+    login: (state, {payload} ) => {
+      console.log("Payload:", payload);
       state.isLoggedIn = true;
+      state.uid = payload.uid;
+      state.createdAt = payload.createdAt;
+      state.email = payload.email;
+      state.name = payload.name;
+      state.profilePicture = payload.profilePicture;
     },
     logout: (state) => {
       state.isLoggedIn = false;

@@ -12,20 +12,32 @@ import {
 import { Images } from '../../../assets/images';
 import colors from '../../constants/colors';
 import ButtonComponent from '../../components/Button/ButtonComponent';
-// import auth from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
+import { getUserData } from '../../api/firebase';
+import { useDispatch } from 'react-redux';
+import { login } from '../../redux/slices/LoginStatusSlice';
 
 const LandingScreen = ({ navigation }: any) => {
-    
+    const dispatch = useDispatch();
 
-    React.useEffect(() => {
-        // const user = auth().currentUser;
-        // if (user) {
-        //   // Proceed with Firestore operation
-        //   console.log("User is Authenticated:", user)
-        // } else {
-        //   console.log('User is not authenticated');
-        // }
-    });
+
+    // React.useEffect(() => {
+    //     const user = auth().currentUser;
+    //     if (user) {
+    //         // Proceed with Firestore operation
+    //         console.log("DrawerContent:", user.uid)
+    //         getUserInfo(user.uid);
+
+    //     } else {
+    //         console.log('User is not authenticated');
+    //     }
+    // });
+    // const getUserInfo = async (uid: string) => {
+    //     const userCredential = await getUserData(uid);
+    //     console.log('userCredential: ', userCredential);
+    //     // setUserDetails(userCredential);
+    //     dispatch(login({ ...userCredential, uid: uid }))
+    // }
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.primaryBackground }}>
@@ -38,7 +50,7 @@ const LandingScreen = ({ navigation }: any) => {
                 {/* Buttons */}
                 <View style={styles.buttonContainer}>
 
-                    <View style={{ width:'50%' }}>
+                    <View style={{ width: '50%' }}>
                         <ButtonComponent
                             title="Sign Up"
                             marginLR={10}
@@ -46,7 +58,7 @@ const LandingScreen = ({ navigation }: any) => {
                             onPress={() => navigation.navigate('CreateAccount')}
                         />
                     </View>
-                    <View style={{ width:'50%' }}>
+                    <View style={{ width: '50%' }}>
                         <ButtonComponent
                             title="Log In"
                             marginLR={10}

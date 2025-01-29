@@ -11,6 +11,8 @@ import PhoneNumberInput from '../../components/Inputs/PhoneNumberInput';
 import TermsAndPrivacy from '../../components/Labels/TermsAndPrivacy';
 import ButtonComponent from '../../components/Button/ButtonComponent';
 import auth from '@react-native-firebase/auth';
+import { useDispatch } from 'react-redux';
+import { login } from '../../redux/slices/LoginStatusSlice';
 
 import {
     GoogleSignin,
@@ -20,6 +22,8 @@ import { saveUserToDatabase } from '../../api/firebase';
 
 
 const CreateAccountScreen = ({ navigation }: any) => {
+    const dispatch = useDispatch();
+
     const [firstName, setFirstName] = React.useState('');
     const [lastName, setLastName] = React.useState('');
     const [phoneNumber, setPhoneNumber] = React.useState('');
@@ -54,6 +58,8 @@ const CreateAccountScreen = ({ navigation }: any) => {
             await saveUserToDatabase(user);
 
             console.log('User signed in and saved:', user);
+            dispatch(login(user))
+
 
         } catch (error) {
             if (error instanceof Error) {
