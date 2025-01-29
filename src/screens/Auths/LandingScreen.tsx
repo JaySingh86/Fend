@@ -12,9 +12,21 @@ import {
 import { Images } from '../../../assets/images';
 import colors from '../../constants/colors';
 import ButtonComponent from '../../components/Button/ButtonComponent';
+// import auth from '@react-native-firebase/auth';
 
 const LandingScreen = ({ navigation }: any) => {
     
+
+    React.useEffect(() => {
+        // const user = auth().currentUser;
+        // if (user) {
+        //   // Proceed with Firestore operation
+        //   console.log("User is Authenticated:", user)
+        // } else {
+        //   console.log('User is not authenticated');
+        // }
+    });
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.primaryBackground }}>
             <ImageBackground source={Images.background} style={styles.background}>

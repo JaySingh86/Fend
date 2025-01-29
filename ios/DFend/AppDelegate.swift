@@ -1,4 +1,6 @@
 import UIKit
+import Firebase
+import GoogleSignIn
 import React
 import React_RCTAppDelegate
 import ReactAppDependencyProvider
@@ -12,6 +14,8 @@ class AppDelegate: RCTAppDelegate {
     // You can add your custom initial props in the dictionary below.
     // They will be passed down to the ViewController used by React Native.
     self.initialProps = [:]
+    FirebaseApp.configure()
+
 
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
@@ -27,4 +31,12 @@ class AppDelegate: RCTAppDelegate {
     Bundle.main.url(forResource: "main", withExtension: "jsbundle")
 #endif
   }
+  // Handle Google Sign-In callback
+  override func application(
+          _ app: UIApplication,
+          open url: URL,
+          options: [UIApplication.OpenURLOptionsKey : Any] = [:]
+      ) -> Bool {
+          return GIDSignIn.sharedInstance.handle(url)
+      }
 }

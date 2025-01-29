@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, SafeAreaView, Button, Keyboard } from 'react-native';
+import { View, Text, StyleSheet, Image, SafeAreaView, Button, Keyboard, Platform } from 'react-native';
 import BackButton from '../../components/Button/BackButton'; // Adjust the path
 import SocialLoginButton from '../../components/Button/SocialLoginButton'; // Adjust the path
 import { Images } from '../../../assets/images';
@@ -10,6 +10,14 @@ import CustomTextInput from '../../components/Inputs/CustomTextInput';
 import PhoneNumberInput from '../../components/Inputs/PhoneNumberInput';
 import TermsAndPrivacy from '../../components/Labels/TermsAndPrivacy';
 import ButtonComponent from '../../components/Button/ButtonComponent';
+import auth from '@react-native-firebase/auth';
+
+import {
+    GoogleSignin,
+    statusCodes,
+} from '@react-native-google-signin/google-signin';
+import { saveUserToDatabase } from '../../api/firebase';
+
 
 const CreateAccountScreen = ({ navigation }: any) => {
     const [firstName, setFirstName] = React.useState('');
@@ -24,6 +32,36 @@ const CreateAccountScreen = ({ navigation }: any) => {
 
     const validateInputs = () => {
 
+    };
+    const signInWithGoogle = async () => {
+        console.log("signInWithGoogle");
+        try {
+            // iOS does not require hasPlayServices
+            if (Platform.OS === 'android') {
+                await GoogleSignin.hasPlayServices();
+            }
+            // Start Google Sign-In process
+            const userInfo = await GoogleSignin.signIn();
+            console.log("userInfo:", userInfo)
+            const { idToken } = await GoogleSignin.getTokens();
+            const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+            // Sign in to Firebase
+            const userCredential = await auth().signInWithCredential(googleCredential);
+            const user = userCredential.user;
+
+            // Save user details in Firebase Realtime Database
+            await saveUserToDatabase(user);
+
+            console.log('User signed in and saved:', user);
+
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(error.message);
+            } else {
+                console.error(error);
+            }
+        }
     };
 
     return (
@@ -62,7 +100,7 @@ const CreateAccountScreen = ({ navigation }: any) => {
                     title="Sign up with Google"
                     backgroundColor={colors.buttonSecondry}
                     icon={Images.googleIcon} // Replace with your local icon path
-                    onPress={() => console.log('Google login pressed')}
+                    onPress={() => signInWithGoogle()}
                 />
                 <SocialLoginButton
                     title="Sign up with Apple"
@@ -111,7 +149,7 @@ const CreateAccountScreen = ({ navigation }: any) => {
                     marginLR={0}
                     marginT={20}
                     color={colors.buttonPrimary}
-                    onPress={() => navigation.navigate('OTPVerify',{isFromLogin:false})}
+                    onPress={() => navigation.navigate('OTPVerify', { isFromLogin: false })}
                 />
 
 

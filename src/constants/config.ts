@@ -1,6 +1,7 @@
 // src/constants/config.ts
 
 export const API_BASE_URL = 'https://api.example.com';
+export const GoogleCredId = '288485119786-7udc072925hmuc1ho39e773c8vjt55s2.apps.googleusercontent.com'
 export const TIMEOUT = 5000;
 
 export const COLORS = {
