@@ -102,7 +102,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
       </InputAccessoryView>
 
       {/* Validation Error */}
-      {/* {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null} */}
+      {errorMessage?.length > 0 ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
     </View>
   );
 };
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     color: colors.textPrimary,
   },
   errorText: {
-    color: '#FF0000',
+    color: colors.textPrimary,
     fontSize: 12,
     marginTop: 5,
   },

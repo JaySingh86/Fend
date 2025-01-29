@@ -1,6 +1,8 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import UserNotifications
+
 import React
 import React_RCTAppDelegate
 import ReactAppDependencyProvider
@@ -32,11 +34,17 @@ class AppDelegate: RCTAppDelegate {
 #endif
   }
   // Handle Google Sign-In callback
-  override func application(
-          _ app: UIApplication,
-          open url: URL,
-          options: [UIApplication.OpenURLOptionsKey : Any] = [:]
-      ) -> Bool {
+  override func application( _ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
           return GIDSignIn.sharedInstance.handle(url)
+  }
+  override func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+      
+      if Auth.auth().canHandleNotification(userInfo) {
+          completionHandler(.noData)
+          return
       }
+      completionHandler(.newData)
+  }
+
 }

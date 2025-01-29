@@ -32,7 +32,7 @@
 		</dict>
 	</array>
 	<key>FirebaseAppDelegateProxyEnabled</key>
-	<false/>
+	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Allow camera access for QR scanning</string>
 	<key>NSPhotoLibraryUsageDescription</key>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, SafeAreaView, Button, Keyboard, Platform } from 'react-native';
+import { View, Text, StyleSheet, Image, SafeAreaView, Button, Keyboard, Platform, Alert } from 'react-native';
 import BackButton from '../../components/Button/BackButton'; // Adjust the path
 import SocialLoginButton from '../../components/Button/SocialLoginButton'; // Adjust the path
 import { Images } from '../../../assets/images';
@@ -19,6 +19,7 @@ import {
     statusCodes,
 } from '@react-native-google-signin/google-signin';
 import { saveUserToDatabase } from '../../api/firebase';
+import { parseFirebaseError } from '../../utils/firebaseErrorUtils';
 
 
 const CreateAccountScreen = ({ navigation }: any) => {
@@ -28,6 +29,9 @@ const CreateAccountScreen = ({ navigation }: any) => {
     const [lastName, setLastName] = React.useState('');
     const [phoneNumber, setPhoneNumber] = React.useState('');
     const [rawPhoneNumber, setRawPhoneNumber] = React.useState('');
+    const [confirmation, setConfirmation] = React.useState(null);
+    const [errorMessage, setErrorMessage] = React.useState<{ phone?: string }>({});
+
 
 
     const field1Ref = React.useRef<any>(null);
@@ -75,6 +79,23 @@ const CreateAccountScreen = ({ navigation }: any) => {
             } else {
                 console.error(error);
             }
+        }
+    };
+    // Step 1: Send OTP
+    const sendOTP = async () => {
+        try {
+            const number = '+91' + rawPhoneNumber;
+            console.log('number', number)
+            const confirmationResult = await auth().signInWithPhoneNumber(number);
+            setConfirmation(confirmationResult);
+            console.log("confirmationResult:",confirmationResult)
+            Alert.alert('OTP Sent!', 'Enter the OTP to verify.',confirmationResult);
+            navigation.navigate('OTPVerify', { isFromLogin: false, otpConfirmation:confirmationResult })
+
+        } catch (error) {
+            console.error('Error sending OTP:', error);
+            setErrorMessage({'phone':'Please enter your phone number.'});
+
         }
     };
 
@@ -135,7 +156,7 @@ const CreateAccountScreen = ({ navigation }: any) => {
                     showNext
                     onNext={() => console.log("Next tap")}
                 />
-                
+
                 <CustomTextInput
                     placeholder="Last name"
                     inputAccessoryViewID={'input2'}
@@ -155,11 +176,7 @@ const CreateAccountScreen = ({ navigation }: any) => {
                         setRawPhoneNumber(raw);
                     }}
                     maxLength={10} // Limit to 10 digits
-                    errorMessage={
-                        rawPhoneNumber.length < 10
-                            ? 'Please enter a valid 10-digit phone number'
-                            : ''
-                    }
+                    errorMessage={errorMessage?.phone}
 
                 />
                 <ButtonComponent
@@ -167,7 +184,7 @@ const CreateAccountScreen = ({ navigation }: any) => {
                     marginLR={0}
                     marginT={20}
                     color={colors.buttonPrimary}
-                    onPress={() => navigation.navigate('OTPVerify', { isFromLogin: false })}
+                    onPress={() => sendOTP()}
                 />
 
 

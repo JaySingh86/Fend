@@ -7,11 +7,13 @@ import { Images } from '../../../assets/images';
 import ButtonComponent from '../../components/Button/ButtonComponent';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/slices/LoginStatusSlice';
+import auth from '@react-native-firebase/auth';
+import { parseFirebaseError } from '../../utils/firebaseErrorUtils';
 
 const OTPVerifyScreen: React.FC = ({ route, navigation }: any) => {
   const dispatch = useDispatch();
   // const navigation = useNavigation();
-  const { isFromLogin } = route.params;
+  const { isFromLogin, otpConfirmation } = route.params;
 
   const [otp, setOtp] = useState<string[]>(Array(6).fill(''));
   const [timer, setTimer] = useState<number>(30);
@@ -57,6 +59,38 @@ const OTPVerifyScreen: React.FC = ({ route, navigation }: any) => {
       // Add your OTP verification logic here
     } else {
       Alert.alert('Please enter all 6 digits of the OTP');
+    }
+  };
+  // Step 2: Verify OTP & Save User to Database
+  const verifyOTP = async () => {
+    console.log('otpConfirmation',otp)
+    const joinedOTP =  otp.join('');  // Concatenates all elements without spaces
+
+    try {
+      if (!otp) {
+        throw new Error('Please enter the OTP.');
+      }
+      if (!otpConfirmation.verificationId) {
+        throw new Error('Verification ID is missing. Please request a new OTP.');
+      }
+      if (!otpConfirmation) return;
+      const credential = auth.PhoneAuthProvider.credential(otpConfirmation.verificationId, joinedOTP);
+      await auth().signInWithCredential(credential);
+
+      // const userCredential = await otpConfirmation.confirm(otp);
+      // const userId = userCredential.user.uid;
+      console.log("userCredential:",credential)
+
+      // // Store user data in Firebase Realtime Database
+      // await database().ref(`/users/${userId}`).set({
+      //   name,
+      //   phone
+      // });
+
+      Alert.alert('Success', 'User signed up successfully!');
+    } catch (error) {
+      console.error('Invalid OTP:', parseFirebaseError(error));
+      Alert.alert('Error', 'Invalid OTP. Try again.');
     }
   };
 
@@ -123,7 +157,7 @@ const OTPVerifyScreen: React.FC = ({ route, navigation }: any) => {
           marginLR={0}
           marginT={20}
           color={colors.buttonPrimary}
-          onPress={() => dispatch(login())}
+          onPress={() => verifyOTP()}
         />
       </View>
     </SafeAreaView>
