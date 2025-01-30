@@ -6,6 +6,7 @@ export const Images = {
     googleIcon: require('./googleIcon.png'),
     appleIcon: require('./appleIcon.png'),
     arrowLeftLight: require('./arrowLeftLight.png'),
+    arrowRightLight: require('./arrowRightLight.png'),
     logoText: require('./logoText.png'),
     closeIcon: require('./closeIcon.png'),
     faceIdIcon: require('./faceIdIcon.png'),
@@ -30,5 +31,9 @@ export const Images = {
     profileIcon: require('./profileIcon.png'),
     shareIcon: require('./shareIcon.png'),
     TCIcon: require('./T&CIcon.png'),
-    userSample: require('./userSample.png')
+    userSample: require('./userSample.png'),
+    ChaseBankLogo: require('./Chase-Bank-Logo.png'),
+    email: require('./email.png'),
+    trash: require('./trash.png'),
+
 };

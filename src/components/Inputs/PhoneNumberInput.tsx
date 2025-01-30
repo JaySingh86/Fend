@@ -11,6 +11,7 @@ import {
   Keyboard,
 } from 'react-native';
 import colors from '../../constants/colors';
+import globalStyles from '../../styles/styles';
 
 interface PhoneNumberInputProps {
   placeholder?: string;
@@ -91,7 +92,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
 
       {/* InputAccessoryView */}
       <InputAccessoryView nativeID={inputAccessoryViewID}>
-        <View style={styles.inputAccessoryContainer}>
+        <View style={globalStyles.inputAccessoryContainer}>
           {showPrevious && (
             <Button title="Previous" onPress={onPrevious || (() => {})} />
           )}
@@ -101,7 +102,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
       </InputAccessoryView>
 
       {/* Validation Error */}
-      {/* {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null} */}
+      {errorMessage?.length > 0 ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
     </View>
   );
 };
@@ -118,7 +119,7 @@ const styles = StyleSheet.create({
     color: colors.textPrimary,
   },
   errorText: {
-    color: '#FF0000',
+    color: colors.textPrimary,
     fontSize: 12,
     marginTop: 5,
   },

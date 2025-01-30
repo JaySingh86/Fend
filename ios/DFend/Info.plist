@@ -20,6 +20,25 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.288485119786-iqspaenn8jjhouan7ndgcrunek6dmipm</string>
+			</array>
+		</dict>
+	</array>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Allow camera access for QR scanning</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow access to photo library</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Allow location access&lt;</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -31,8 +50,20 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Inter-Italic.ttf</string>
+		<string>Inter-Regulr.ttf</string>
+		<string>Montserrat-Regular.ttf</string>
+		<string>Montserrat-Bold.ttf</string>
+		<string>Montserrat-Italic.ttf</string>
+		<string>Montserrat-Medium.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+		<string>fetch</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -44,15 +75,6 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Inter-Italic.ttf</string>
-		<string>Inter-Regulr.ttf</string>
-		<string>Montserrat-Regular.ttf</string>
-		<string>Montserrat-Bold.ttf</string>
-		<string>Montserrat-Italic.ttf</string>
-		<string>Montserrat-Medium.ttf</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>

@@ -7,6 +7,7 @@ import MainAppStack from './MainAppStack';
 
 const Navigator = () => {
   const isLoggedIn = useSelector((state: RootState) => state.loginStatus.isLoggedIn);
+ 
 
   return (
     <NavigationContainer>

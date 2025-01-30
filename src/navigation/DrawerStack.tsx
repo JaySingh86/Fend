@@ -18,10 +18,14 @@ import BottomTab from "./Bottomtab";
 import { Images } from "../../assets/images";
 import ButtonComponent from "../components/Button/ButtonComponent";
 import colors from "../constants/colors";
-import { useDispatch } from "react-redux";
+import { useDispatch , useSelector} from "react-redux";
+import { RootState } from '../redux/store';
+
 import { logout } from "../redux/slices/LoginStatusSlice";
 import globalStyles from "../styles/styles";
 import BackButton from "../components/Button/BackButton";
+import { getUserData } from "../api/firebase";
+import auth from '@react-native-firebase/auth';
 
 const { height, width } = Dimensions.get("screen");
 
@@ -37,75 +41,83 @@ type DrawerContentProps = {
 };
 
 const DrawerContent = ({ navigation }: DrawerContentProps) => {
+  
   const dispatch = useDispatch();
+  const userDetails = useSelector((state: RootState) => state.loginStatus);
+  
+  React.useEffect(() => {
+    console.log("User Details: ", userDetails)
+  });
+ 
   return (
     <View style={styles.drawerContent}>
       <SafeAreaView />
       {/* Drawer Header */}
-      
-      <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-        <View style={{height:40, width:40}}/>
+
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <View style={{ height: 40, width: 40 }} />
         <View style={styles.userInfo}>
-          <View style={{marginTop:12,marginBottom:20 ,width:120, height:120, backgroundColor:colors.buttonSecondry, borderRadius:60, justifyContent:'center', alignItems:'center'}}>
-            <Image style={styles.profileImage} source={Images.userSample} />
+          <View style={{ marginTop: 12, marginBottom: 20, width: 120, height: 120, backgroundColor: colors.buttonSecondry, borderRadius: 60, justifyContent: 'center', alignItems: 'center' }}>
+            
+            <Image style={styles.profileImage} source={userDetails?.profilePicture.length > 0 ? {uri:userDetails?.profilePicture} : Images.userSample} />
           </View>
-          <Text style={styles.userName}>Chris Smith</Text>
-          <Text style={styles.userEmail}>chris_smith@gmail.com</Text>
+          <Text style={globalStyles.H2Title}>{userDetails?.name}</Text>
+          <Text style={globalStyles.Subtitle1}>{userDetails?.email}</Text>
         </View>
         <View style={styles.headerView}>
-        <BackButton
-          onPress={() => navigation.closeDrawer()} // Provide a default no-op function
-          backgroundColor={colors.buttonSecondry} // Light gray background
-          icon={Images.closeIcon} // Replace with your back icon
-        />
-      </View>
+          <BackButton
+            onPress={() => navigation.closeDrawer()} // Provide a default no-op function
+            backgroundColor={colors.buttonSecondry} // Light gray background
+            icon={Images.closeIcon} // Replace with your back icon
+          />
+        </View>
 
       </View>
 
       {/* User Info */}
-      
+
       {/* Sign Out */}
       <Pressable onPress={() => dispatch(logout())} style={styles.signOutButton}>
         <Text style={globalStyles.H4Title}>Sign Out</Text>
       </Pressable>
 
       {/* Drawer Options */}
-      <View style={{flex:1,justifyContent:'space-between'}}>
-      <View style={styles.drawerOptions}>
-        <DrawerOption
-          iconSource={Images.profileIcon}
-          label="My Profile"
-          onPress={() => navigation.navigate("Home")}
+      <View style={{ flex: 1, justifyContent: 'space-between' }}>
+        <View style={styles.drawerOptions}>
+          <DrawerOption
+            iconSource={Images.profileIcon}
+            label="My Profile"
+            onPress={() => navigation.navigate("Home")}
+          />
+          <DrawerOption iconSource={Images.FAQIcon} label="FAQ" />
+          <DrawerOption iconSource={Images.shareIcon} label="Share" />
+        </View>
+        <View style={{ height: height * 0.06 }} />
+        <View style={styles.drawerOptions}>
+          <DrawerOption
+            iconSource={Images.TCIcon}
+            label="Terms & Conditions"
+          />
+          <DrawerOption
+            iconSource={Images.policyIcon}
+            label="Privacy Policy"
+          />
+          <DrawerOption
+            iconSource={Images.inviteIcon}
+            label="Invite Friends & Family"
+          />
+        </View>
+        {/* Footer Section */}
+        <View style={{ height: height * 0.035 }} />
+        <ButtonComponent
+          title="Upgrade to premium"
+          marginLR={0}
+          marginB={12}
+          color={colors.buttonPrimary}
+          onPress={function (): void {
+            throw new Error("Function not implemented.");
+          }}      // onPress={() => navigation.navigate('Login')}
         />
-        <DrawerOption iconSource={Images.FAQIcon} label="FAQ" />
-        <DrawerOption iconSource={Images.shareIcon} label="Share" />
-      </View>
-      <View style={{ height: height * 0.06 }} />
-      <View style={styles.drawerOptions}>
-        <DrawerOption
-          iconSource={Images.TCIcon}
-          label="Terms & Conditions"
-        />
-        <DrawerOption
-          iconSource={Images.policyIcon}
-          label="Privacy Policy"
-        />
-        <DrawerOption
-          iconSource={Images.inviteIcon}
-          label="Invite Friends & Family"
-        />
-      </View>
-      {/* Footer Section */}
-      <View style={{ height: height * 0.035 }} />
-      <ButtonComponent
-        title="Upgrade to premium"
-        marginLR={0}
-        marginB={12}
-        color={colors.buttonPrimary}
-        onPress={function (): void {
-          throw new Error("Function not implemented.");
-        }}      // onPress={() => navigation.navigate('Login')}
-      />
 
       </View>
 
@@ -154,7 +166,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent background for drawer
     padding: 20,
-    paddingTop:0,
+    paddingTop: 0,
   },
   headerView: {
     alignItems: "flex-end",
@@ -211,7 +223,7 @@ const styles = StyleSheet.create({
     color: "#FFF",
     fontSize: 14,
   },
-  
+
 });
 
 export default DrawerStack;

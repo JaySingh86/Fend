@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, SafeAreaView, Button, Keyboard } from 'react-native';
+import { View, Text, StyleSheet, Image, SafeAreaView, Button, Keyboard, Platform, Alert } from 'react-native';
 import BackButton from '../../components/Button/BackButton'; // Adjust the path
 import SocialLoginButton from '../../components/Button/SocialLoginButton'; // Adjust the path
 import { Images } from '../../../assets/images';
@@ -10,12 +10,28 @@ import CustomTextInput from '../../components/Inputs/CustomTextInput';
 import PhoneNumberInput from '../../components/Inputs/PhoneNumberInput';
 import TermsAndPrivacy from '../../components/Labels/TermsAndPrivacy';
 import ButtonComponent from '../../components/Button/ButtonComponent';
+import auth from '@react-native-firebase/auth';
+import { useDispatch } from 'react-redux';
+import { login } from '../../redux/slices/LoginStatusSlice';
+
+import {
+    GoogleSignin,
+    statusCodes,
+} from '@react-native-google-signin/google-signin';
+import { saveUserToDatabase } from '../../api/firebase';
+import { parseFirebaseError } from '../../utils/firebaseErrorUtils';
+
 
 const CreateAccountScreen = ({ navigation }: any) => {
+    const dispatch = useDispatch();
+
     const [firstName, setFirstName] = React.useState('');
     const [lastName, setLastName] = React.useState('');
     const [phoneNumber, setPhoneNumber] = React.useState('');
     const [rawPhoneNumber, setRawPhoneNumber] = React.useState('');
+    const [confirmation, setConfirmation] = React.useState(null);
+    const [errorMessage, setErrorMessage] = React.useState<{ phone?: string }>({});
+
 
 
     const field1Ref = React.useRef<any>(null);
@@ -24,6 +40,63 @@ const CreateAccountScreen = ({ navigation }: any) => {
 
     const validateInputs = () => {
 
+    };
+    const signInWithGoogle = async () => {
+        console.log("signInWithGoogle");
+        try {
+            // iOS does not require hasPlayServices
+            if (Platform.OS === 'android') {
+                await GoogleSignin.hasPlayServices();
+            }
+            // Start Google Sign-In process
+            const userInfo = await GoogleSignin.signIn();
+            console.log("userInfo:", userInfo)
+            const { idToken } = await GoogleSignin.getTokens();
+            const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+            // Sign in to Firebase
+            const userCredential = await auth().signInWithCredential(googleCredential);
+            const user = userCredential.user;
+
+            // Save user details in Firebase Realtime Database
+            await saveUserToDatabase(user);
+
+            console.log('User signed in and saved:', user);
+            const loginInfo = {
+                isLoggedIn: true, // Default state - user is not logged in
+                uid: user?.uid,
+                createdAt: user?.metadata?.lastSignInTime,
+                email: user?.email,
+                name: user?.displayName,
+                profilePicture: user?.photoURL
+            }
+            dispatch(login(loginInfo))
+
+
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(error.message);
+            } else {
+                console.error(error);
+            }
+        }
+    };
+    // Step 1: Send OTP
+    const sendOTP = async () => {
+        try {
+            const number = '+91' + rawPhoneNumber;
+            console.log('number', number)
+            const confirmationResult = await auth().signInWithPhoneNumber(number);
+            setConfirmation(confirmationResult);
+            console.log("confirmationResult:",confirmationResult)
+            Alert.alert('OTP Sent!', 'Enter the OTP to verify.',confirmationResult);
+            navigation.navigate('OTPVerify', { isFromLogin: false, otpConfirmation:confirmationResult })
+
+        } catch (error) {
+            console.error('Error sending OTP:', error);
+            setErrorMessage({'phone':'Please enter your phone number.'});
+
+        }
     };
 
     return (
@@ -62,7 +135,7 @@ const CreateAccountScreen = ({ navigation }: any) => {
                     title="Sign up with Google"
                     backgroundColor={colors.buttonSecondry}
                     icon={Images.googleIcon} // Replace with your local icon path
-                    onPress={() => console.log('Google login pressed')}
+                    onPress={() => signInWithGoogle()}
                 />
                 <SocialLoginButton
                     title="Sign up with Apple"
@@ -74,22 +147,26 @@ const CreateAccountScreen = ({ navigation }: any) => {
                 <DividerWithText text="Or continue with" />
                 <CustomTextInput
                     placeholder="First name"
+                    inputAccessoryViewID={'input1'}
                     value={firstName}
                     onChangeText={setFirstName}
                     errorMessage={""}
                     editable={true}
                     marginBottom={0}
-
+                    showNext
+                    onNext={() => console.log("Next tap")}
                 />
+
                 <CustomTextInput
                     placeholder="Last name"
+                    inputAccessoryViewID={'input2'}
                     value={lastName}
                     onChangeText={setLastName}
                     errorMessage={""}
                     editable={true}
                     marginBottom={0}
                     showNext
-
+                    showPrevious
                 />
                 <PhoneNumberInput
                     placeholder="Phone Number"
@@ -99,11 +176,7 @@ const CreateAccountScreen = ({ navigation }: any) => {
                         setRawPhoneNumber(raw);
                     }}
                     maxLength={10} // Limit to 10 digits
-                    errorMessage={
-                        rawPhoneNumber.length < 10
-                            ? 'Please enter a valid 10-digit phone number'
-                            : ''
-                    }
+                    errorMessage={errorMessage?.phone}
 
                 />
                 <ButtonComponent
@@ -111,7 +184,7 @@ const CreateAccountScreen = ({ navigation }: any) => {
                     marginLR={0}
                     marginT={20}
                     color={colors.buttonPrimary}
-                    onPress={() => navigation.navigate('OTPVerify',{isFromLogin:false})}
+                    onPress={() => sendOTP()}
                 />
 
 
